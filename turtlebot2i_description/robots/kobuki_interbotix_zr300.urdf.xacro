@@ -17,8 +17,8 @@
 
   <sensor_sr300 parent="base_link"/>
 
-  <phantomx_pincher_arm parent="base_link" color="Red" gripper_color="Red">
+  <!--<phantomx_pincher_arm parent="base_link" color="Red" gripper_color="Red">
     <origin xyz="0.145 0.0 0.124"/>
-  </phantomx_pincher_arm>
+  </phantomx_pincher_arm>-->
 
 </robot>

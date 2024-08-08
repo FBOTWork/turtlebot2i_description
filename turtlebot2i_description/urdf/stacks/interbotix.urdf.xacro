@@ -4,6 +4,8 @@
   <!-- TODO: Intertia fields do not contain valid data. Follow tutorial to correct them: http://gazebosim.org/tutorials?tut=inertia -->
 
   <xacro:include filename="$(find turtlebot2i_description)/urdf/common_properties.urdf.xacro"/>
+  <xacro:include filename="$(find doris_sensors_description)/urdf/hokuyo.urdf.xacro" />
+
 
   <!-- Xacro properties -->
   <xacro:property name="PLATE_HEIGHT" value="0.0046"/>
@@ -11,7 +13,7 @@
   <xacro:property name="STANDOFF_100_HEIGHT" value="0.1"/>
   <xacro:property name="STANDOFF_258_HEIGHT" value="0.258"/>
 
-  <xacro:property name="KOBUKI_TOP_HEIGHT" value="0.0975"/> <!--Measure the floor to the top of the robot base where the standoffs install-->
+  <xacro:property name="KOBUKI_TOP_HEIGHT" value="0.0975"/> <!--Measure the floors to the top of the robot base where the standoffs install-->
   <xacro:property name="BASE_LINK_HEIGHT" value="0.0102"/> <!--TODO: Base link for turtlebot is 10.2mm from floor. Why? -->
 
   <xacro:property name="STANDOFF_BOTTOM_Z" value="${KOBUKI_TOP_HEIGHT+STANDOFF_50_HEIGHT/2.0-BASE_LINK_HEIGHT}"/>
@@ -354,5 +356,7 @@
     <standoff_258mm parent="${parent}" number="0" x_loc= "0.069" y_loc= "0.130" z_loc="${STANDOFF_FRONT_Z}"/>
     <standoff_258mm parent="${parent}" number="1" x_loc= "0.069" y_loc="-0.130" z_loc="${STANDOFF_FRONT_Z}"/>
 
+    <xacro:sensor_hokuyo parent="plate_bottom_link" xyz="${0.175 + 0.017 + 0.024 - 0.06} 0 ${0.02 - KOBUKI_TOP_HEIGHT/2}" rpy="3.14 0 0" name="ground"/>
   </xacro:macro>
+ 
 </robot>
