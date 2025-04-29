@@ -6,9 +6,9 @@
 
 
   <!-- Intel SR300 parameters -->
-  <xacro:property name="sr300_cam_offset_px" value="0.120" />
+  <xacro:property name="sr300_cam_offset_px" value="-0.1" />
   <xacro:property name="sr300_cam_offset_py" value="0.0" />
-  <xacro:property name="sr300_cam_offset_pz" value="0.0023" />
+  <xacro:property name="sr300_cam_offset_pz" value="0.4" />
 
   <xacro:property name="sr300_cam_rgb_px" value="0.0"/>
   <xacro:property name="sr300_cam_rgb_py" value="0.02403"/>
@@ -69,7 +69,7 @@
     ==  RGB joints & links ==
     -->
 
-    <joint name="camera_sr300_color_joint" type="fixed">
+    <!-- <joint name="camera_sr300_color_joint" type="fixed">
       <origin xyz="${sr300_cam_rgb_px} ${sr300_cam_rgb_py} ${sr300_cam_rgb_pz}" rpy="0 0 0"/>
       <parent link="camera_sr300"/>
       <child link="camera_sr300_color_frame" />
@@ -81,14 +81,14 @@
       <parent link="camera_sr300_color_frame" />
       <child link="camera_sr300_color_optical_frame" />
     </joint>
-    <link name="camera_sr300_color_optical_frame"/>
+    <link name="camera_sr300_color_optical_frame"/> -->
 
 
     <!--
     ==  Depth joints & links ==
     -->
 
-    <joint name="camera_sr300_depth_joint" type="fixed">
+    <!-- <joint name="camera_sr300_depth_joint" type="fixed">
         <origin xyz="0 0 0" rpy="0 0 0" />
         <parent link="camera_sr300" />
         <child link="camera_sr300_depth_frame" />
@@ -100,7 +100,7 @@
         <parent link="camera_sr300_depth_frame" />
         <child link="camera_sr300_depth_optical_frame" />
     </joint>
-    <link name="camera_sr300_depth_optical_frame"/>
+    <link name="camera_sr300_depth_optical_frame"/> -->
 
   	<!-- Simulation sensor -->
     <gazebo reference="camera_sr300">

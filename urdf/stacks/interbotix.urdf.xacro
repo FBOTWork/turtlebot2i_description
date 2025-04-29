@@ -16,17 +16,24 @@
   <xacro:property name="KOBUKI_TOP_HEIGHT" value="0.0975"/> <!--Measure the floors to the top of the robot base where the standoffs install-->
   <xacro:property name="BASE_LINK_HEIGHT" value="0.0102"/> <!--TODO: Base link for turtlebot is 10.2mm from floor. Why? -->
 
+  <!-- <xacro:property name="STANDOFF_BOTTOM_Z" value="${KOBUKI_TOP_HEIGHT+STANDOFF_50_HEIGHT/2.0-BASE_LINK_HEIGHT}"/> -->
+  <xacro:property name="BASE_PLATE_1" value="${STANDOFF_BOTTOM_Z-0.02-PLATE_HEIGHT/2.0}"/>
+  <xacro:property name="BASE_PLATE_2" value="${STANDOFF_BOTTOM_Z-0.02+PLATE_HEIGHT/2.0}"/>
+
   <xacro:property name="STANDOFF_BOTTOM_Z" value="${KOBUKI_TOP_HEIGHT+STANDOFF_50_HEIGHT/2.0-BASE_LINK_HEIGHT}"/>
   <xacro:property name="PLATE_BOTTOM_Z" value="${STANDOFF_BOTTOM_Z+STANDOFF_50_HEIGHT/2.0+PLATE_HEIGHT/2.0}"/>
 
   <xacro:property name="STANDOFF_MIDDLE_Z" value="${PLATE_BOTTOM_Z+PLATE_HEIGHT/2.0+STANDOFF_50_HEIGHT/2.0}"/>
   <xacro:property name="PLATE_MIDDLE_Z" value="${STANDOFF_MIDDLE_Z+STANDOFF_50_HEIGHT/2.0+PLATE_HEIGHT/2.0}"/>
 
-  <xacro:property name="STANDOFF_UTILITY_BOTTOM_Z" value="${PLATE_MIDDLE_Z+PLATE_HEIGHT/2.0+STANDOFF_50_HEIGHT/2.0}"/>
-  <xacro:property name="PLATE_UTILITY_BOTTOM_Z" value="${STANDOFF_UTILITY_BOTTOM_Z+STANDOFF_50_HEIGHT/2.0+PLATE_HEIGHT/2.0}"/>
+  <!-- <xacro:property name="STANDOFF_UTILITY_BOTTOM_Z" value="${PLATE_MIDDLE_Z+PLATE_HEIGHT/2.0+STANDOFF_50_HEIGHT/2.0}"/>
+  <xacro:property name="PLATE_UTILITY_BOTTOM_Z" value="${STANDOFF_UTILITY_BOTTOM_Z+STANDOFF_50_HEIGHT/2.0+PLATE_HEIGHT/2.0}"/> -->
 
-  <xacro:property name="STANDOFF_UTILITY_UPPER_Z" value="${PLATE_UTILITY_BOTTOM_Z+PLATE_HEIGHT/2.0+STANDOFF_100_HEIGHT/2.0}"/>
-  <xacro:property name="PLATE_UTILITY_UPPER_Z" value="${STANDOFF_UTILITY_UPPER_Z+STANDOFF_100_HEIGHT/2.0+PLATE_HEIGHT/2.0}"/>
+  <xacro:property name="STANDOFF_UTILITY_Z" value="${PLATE_BOTTOM_Z+PLATE_HEIGHT/2+STANDOFF_50_HEIGHT}"/>
+  <xacro:property name="PLATE_UTILITY_Z" value="${STANDOFF_UTILITY_Z+STANDOFF_50_HEIGHT+PLATE_HEIGHT/2}"/>
+
+  <!-- <xacro:property name="STANDOFF_UTILITY_UPPER_Z" value="${PLATE_UTILITY_BOTTOM_Z+PLATE_HEIGHT/2.0+STANDOFF_100_HEIGHT/2.0}"/>
+  <xacro:property name="PLATE_UTILITY_UPPER_Z" value="${STANDOFF_UTILITY_UPPER_Z+STANDOFF_100_HEIGHT/2.0+PLATE_HEIGHT/2.0}"/> -->
 
   <xacro:property name="STANDOFF_TOP_Z" value="${PLATE_UTILITY_UPPER_Z+PLATE_HEIGHT/2.0+STANDOFF_100_HEIGHT/2.0}"/>
   <xacro:property name="PLATE_TOP_Z" value="${STANDOFF_TOP_Z+STANDOFF_100_HEIGHT/2.0+PLATE_HEIGHT/2.0}"/>
@@ -36,6 +43,11 @@
   <xacro:property name="material_pink">
     <material name="pink">
       <color rgba="0.8 0.0 0.4 1"/>
+    </material>
+  </xacro:property>
+    <xacro:property name="material_black">
+    <material name="black">
+      <color rgba="0.200 0.200 0.200 1"/>
     </material>
   </xacro:property>
   <xacro:property name="material_near_black">
@@ -58,7 +70,7 @@
         <geometry>
           <mesh filename="package://turtlebot2i_description/meshes/stacks/interbotix/standoff_50mm.stl"/>
         </geometry>
-        <xacro:insert_block name="material_pink"/>
+        <xacro:insert_block name="material_black"/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -93,7 +105,7 @@
         <geometry>
           <mesh filename="package://turtlebot2i_description/meshes/stacks/interbotix/standoff_100mm.stl"/>
         </geometry>
-        <xacro:insert_block name="material_pink"/>
+        <xacro:insert_block name="material_black"/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -128,7 +140,7 @@
         <geometry>
           <mesh filename="package://turtlebot2i_description/meshes/stacks/interbotix/standoff_258mm.stl"/>
         </geometry>
-        <xacro:insert_block name="material_pink"/>
+        <xacro:insert_block name="material_black"/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -157,15 +169,49 @@
     other, but there is no necessary reason to do so.
   -->
   <xacro:macro name="stack_interbotix" params="parent">
-    <standoff_50mm parent="${parent}" number="0" x_loc= "0.120" y_loc= "0.082" z_loc="${STANDOFF_BOTTOM_Z}"/>
+    <!-- <standoff_50mm parent="${parent}" number="0" x_loc= "0.120" y_loc= "0.082" z_loc="${STANDOFF_BOTTOM_Z}"/> -->
     <standoff_50mm parent="${parent}" number="1" x_loc= "0.055" y_loc= "0.120" z_loc="${STANDOFF_BOTTOM_Z}"/>
     <standoff_50mm parent="${parent}" number="2" x_loc="-0.055" y_loc= "0.120" z_loc="${STANDOFF_BOTTOM_Z}"/>
-    <standoff_50mm parent="${parent}" number="3" x_loc= "0.120" y_loc="-0.082" z_loc="${STANDOFF_BOTTOM_Z}"/>
-    <standoff_50mm parent="${parent}" number="4" x_loc= "0.055" y_loc="-0.120" z_loc="${STANDOFF_BOTTOM_Z}"/>
-    <standoff_50mm parent="${parent}" number="5" x_loc="-0.055" y_loc="-0.120" z_loc="${STANDOFF_BOTTOM_Z}"/>
+    <!-- <standoff_50mm parent="${parent}" number="3" x_loc= "0.120" y_loc="-0.082" z_loc="${STANDOFF_BOTTOM_Z}"/> -->
+    <standoff_50mm parent="${parent}" number="3" x_loc= "0.055" y_loc="-0.120" z_loc="${STANDOFF_BOTTOM_Z}"/>
+    <standoff_50mm parent="${parent}" number="4" x_loc="-0.055" y_loc="-0.120" z_loc="${STANDOFF_BOTTOM_Z}"/>
+
+
+    <joint name="base_plate_joint" type="fixed">
+      <origin xyz="0.11 0.0 ${BASE_PLATE_1}" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="base_plate_link"/>
+    </joint>
+    <link name="base_plate_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://turtlebot2i_description/meshes/stacks/interbotix/TurtleBot2i_BottomPlate.stl"/>
+        </geometry>
+        <xacro:insert_block name="material_near_black"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.006" radius="0.170"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.311" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.003328" ixy="0.0" ixz="0.0"
+                 iyy="0.003328" iyz="0.0"
+                 izz="0.006656" />
+      </inertial>
+    </link>
+    <gazebo reference="base_plate_link">
+      <material>Gazebo/Black</material>
+      <!-- <selfCollide>true</selfCollide> -->
+      <gravity>true</gravity>
+    </gazebo>
 
     <joint name="plate_bottom_joint" type="fixed">
-      <origin xyz="0.0 0.0 ${PLATE_BOTTOM_Z}" rpy="0 0 0"/>
+      <origin xyz="0.11 0.0 ${BASE_PLATE_2}" rpy="0 0 0"/>
       <parent link="${parent}"/>
       <child link="plate_bottom_link"/>
     </joint>
@@ -197,17 +243,17 @@
       <gravity>true</gravity>
     </gazebo>
 
-    <standoff_50mm parent="${parent}" number="6" x_loc= "0.069" y_loc= "0.130" z_loc="${STANDOFF_MIDDLE_Z}"/>
+    <!-- <standoff_50mm parent="${parent}" number="6" x_loc= "0.069" y_loc= "0.130" z_loc="${STANDOFF_MIDDLE_Z}"/>
     <standoff_50mm parent="${parent}" number="7" x_loc= "0.069" y_loc="-0.130" z_loc="${STANDOFF_MIDDLE_Z}"/>
 
     <standoff_50mm parent="${parent}" number="8" x_loc= "-0.001" y_loc= "0.162" z_loc="${STANDOFF_MIDDLE_Z}"/>
     <standoff_50mm parent="${parent}" number="9" x_loc= "-0.001" y_loc="-0.162" z_loc="${STANDOFF_MIDDLE_Z}"/>
 
     <standoff_50mm parent="${parent}" number="10" x_loc="-0.104" y_loc= "0.098" z_loc="${STANDOFF_MIDDLE_Z}"/>
-    <standoff_50mm parent="${parent}" number="11" x_loc="-0.104" y_loc="-0.098" z_loc="${STANDOFF_MIDDLE_Z}"/>
+    <standoff_50mm parent="${parent}" number="11" x_loc="-0.104" y_loc="-0.098" z_loc="${STANDOFF_MIDDLE_Z}"/> -->
 
     <joint name="plate_middle_joint" type="fixed">
-      <origin xyz="0.0 0.0 ${PLATE_MIDDLE_Z}" rpy="0 0 0"/>
+      <origin xyz="0.0 0.0 ${PLATE_BOTTOM_Z}" rpy="0 0 0"/>
       <parent link="${parent}"/>
       <child link="plate_middle_link"/>
     </joint>
@@ -239,17 +285,17 @@
       <gravity>true</gravity>
     </gazebo>
 
-    <standoff_100mm parent="${parent}" number="6" x_loc= "-0.001" y_loc= "0.162" z_loc="${STANDOFF_UTILITY_BOTTOM_Z}"/>
-    <standoff_100mm parent="${parent}" number="7" x_loc= "-0.001" y_loc="-0.162" z_loc="${STANDOFF_UTILITY_BOTTOM_Z}"/>
-    <standoff_100mm parent="${parent}" number="8" x_loc="-0.104" y_loc= "0.098" z_loc="${STANDOFF_UTILITY_BOTTOM_Z}"/>
-    <standoff_100mm parent="${parent}" number="9" x_loc="-0.104" y_loc="-0.098" z_loc="${STANDOFF_UTILITY_BOTTOM_Z}"/>
+    <standoff_100mm parent="${parent}" number="6" x_loc= "-0.001" y_loc= "0.162" z_loc="${STANDOFF_UTILITY_Z}"/>
+    <standoff_100mm parent="${parent}" number="7" x_loc= "-0.001" y_loc="-0.162" z_loc="${STANDOFF_UTILITY_Z}"/>
+    <standoff_100mm parent="${parent}" number="8" x_loc="-0.104" y_loc= "0.098" z_loc="${STANDOFF_UTILITY_Z}"/>
+    <standoff_100mm parent="${parent}" number="9" x_loc="-0.104" y_loc="-0.098" z_loc="${STANDOFF_UTILITY_Z}"/>
 
-    <joint name="plate_utility_lower" type="fixed">
-      <origin xyz="0.0 0.0 ${PLATE_UTILITY_BOTTOM_Z}" rpy="0 0 0"/>
+    <joint name="plate_utility" type="fixed">
+      <origin xyz="0.0 0.0 ${PLATE_UTILITY_Z}" rpy="0 0 0"/>
       <parent link="${parent}"/>
-      <child link="plate_utility_lower_link"/>
+      <child link="plate_utility_link"/>
     </joint>
-    <link name="plate_utility_lower_link">
+    <link name="plate_utility_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -271,92 +317,17 @@
                  izz="0.006656" />
       </inertial>
     </link>
-    <gazebo reference="plate_utility_lower_link">
+    <gazebo reference="plate_utility_link">
       <material>Gazebo/Black</material>
       <!-- <selfCollide>true</selfCollide> -->
       <gravity>true</gravity>
     </gazebo>
 
-    <standoff_100mm parent="${parent}" number="0" x_loc= "-0.001" y_loc= "0.162" z_loc="${STANDOFF_UTILITY_UPPER_Z}"/>
-    <standoff_100mm parent="${parent}" number="1" x_loc= "-0.001" y_loc="-0.162" z_loc="${STANDOFF_UTILITY_UPPER_Z}"/>
-    <standoff_100mm parent="${parent}" number="2" x_loc="-0.104" y_loc= "0.098" z_loc="${STANDOFF_UTILITY_UPPER_Z}"/>
-    <standoff_100mm parent="${parent}" number="3" x_loc="-0.104" y_loc="-0.098" z_loc="${STANDOFF_UTILITY_UPPER_Z}"/>
+    
+    <!-- <standoff_258mm parent="${parent}" number="0" x_loc= "0.069" y_loc= "0.130" z_loc="${STANDOFF_FRONT_Z}"/>
+    <standoff_258mm parent="${parent}" number="1" x_loc= "0.069" y_loc="-0.130" z_loc="${STANDOFF_FRONT_Z}"/> -->
 
-    <joint name="plate_utility_upper" type="fixed">
-      <origin xyz="0.0 0.0 ${PLATE_UTILITY_UPPER_Z}" rpy="0 0 0"/>
-      <parent link="${parent}"/>
-      <child link="plate_utility_upper_link"/>
-    </joint>
-    <link name="plate_utility_upper_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://turtlebot2i_description/meshes/stacks/interbotix/TurtleBot2i_UtilityPlate.stl"/>
-        </geometry>
-        <xacro:insert_block name="material_near_black"/>
-      </visual>
-      <collision>
-        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://turtlebot2i_description/meshes/stacks/interbotix/TurtleBot2i_UtilityPlate.stl"/>
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="0.153" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.003328" ixy="0.0" ixz="0.0"
-                 iyy="0.003328" iyz="0.0"
-                 izz="0.006656" />
-      </inertial>
-    </link>
-    <gazebo reference="plate_utility_upper_link">
-      <material>Gazebo/Black</material>
-      <!-- <selfCollide>true</selfCollide> -->
-      <gravity>true</gravity>
-    </gazebo>
-
-    <standoff_100mm parent="${parent}" number="10" x_loc= "-0.001" y_loc= "0.162" z_loc="${STANDOFF_TOP_Z}"/>
-    <standoff_100mm parent="${parent}" number="11" x_loc= "-0.001" y_loc="-0.162" z_loc="${STANDOFF_TOP_Z}"/>
-    <standoff_100mm parent="${parent}" number="12" x_loc="-0.104" y_loc= "0.098" z_loc="${STANDOFF_TOP_Z}"/>
-    <standoff_100mm parent="${parent}" number="13" x_loc="-0.104" y_loc="-0.098" z_loc="${STANDOFF_TOP_Z}"/>
-
-    <joint name="plate_top_joint" type="fixed">
-      <origin xyz="0.0 0.0 ${PLATE_TOP_Z}" rpy="0 0 0"/>
-      <parent link="${parent}"/>
-      <child link="plate_top_link"/>
-    </joint>
-    <link name="plate_top_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://turtlebot2i_description/meshes/stacks/interbotix/TurtleBot2i_TopPlate.stl" scale="0.001 0.001 0.001"/>
-        </geometry>
-        <xacro:insert_block name="material_near_black"/>
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://turtlebot2i_description/meshes/stacks/interbotix/TurtleBot2i_TopPlate.stl" scale="0.001 0.001 0.001"/>
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="0.377"/>
-        <origin xyz="0 0 0"/>
-        <inertia ixx="0.003328" ixy="0.0" ixz="0.0"
-                 iyy="0.003328" iyz="0.0"
-                 izz="0.006656" />
-      </inertial>
-    </link>
-    <gazebo reference="plate_top_link">
-      <material>Gazebo/Black</material>
-      <!-- <selfCollide>true</selfCollide> -->
-      <gravity>true</gravity>
-    </gazebo>
-
-    <standoff_258mm parent="${parent}" number="0" x_loc= "0.069" y_loc= "0.130" z_loc="${STANDOFF_FRONT_Z}"/>
-    <standoff_258mm parent="${parent}" number="1" x_loc= "0.069" y_loc="-0.130" z_loc="${STANDOFF_FRONT_Z}"/>
-
-    <xacro:sensor_hokuyo parent="plate_bottom_link" xyz="0.215 0 ${0.002 - KOBUKI_TOP_HEIGHT/1.1}" rpy="3.14 0 0"/>
+    <xacro:sensor_hokuyo parent="plate_bottom_link" xyz="0.1 0 -0.035" rpy="3.14 0 0"/>
     </xacro:macro>
    
     <!--<xacro:kinect_v2 parent="plate_top_link">
